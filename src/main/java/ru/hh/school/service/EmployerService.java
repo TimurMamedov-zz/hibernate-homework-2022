@@ -47,7 +47,7 @@ public class EmployerService {
   // работодателя, если он... плохой
   // мы не можем оставить открытой транзакцию на время похода по сети,
   // т.к это очень долгая операция
-  // однако после возвращения из сервиса нем нужно достать связанные данные
+  // однако после возвращения из сервиса нам нужно достать связанные данные
   // так что нужно принять меры к тому, чтобы не получить LazyInitializationException
   public void blockIfEmployerUseBadWords(int employerId) {
     Employer employer = transactionHelper.inTransaction(() -> employerDao.getEager(employerId));
@@ -69,6 +69,7 @@ public class EmployerService {
     transactionHelper.inTransaction(() -> {
       employer.setBlockTime(LocalDateTime.now());
       employer.getVacancies().forEach(v -> v.setArchivingTime(LocalDateTime.now()));
+      employerDao.updateTime(employer);
     });
   }
 
