@@ -1,12 +1,19 @@
 package ru.hh.school.entity;
 
-import org.hibernate.annotations.SelectBeforeUpdate;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "employer")
@@ -16,9 +23,6 @@ public class Employer {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "employer_id")
   private Integer id;
-
-  @Version
-  private short version;
 
   @Column(name = "company_name")
   private String companyName;
@@ -61,15 +65,6 @@ public class Employer {
 
   public void setBlockTime(LocalDateTime blockTime) {
     this.blockTime = blockTime;
-  }
-
-  public short getVersion() {
-    return version;
-  }
-
-  public Employer setVersion(short version) {
-    this.version = version;
-    return this;
   }
 
   // статьи на тему реализации equals() и hashCode():

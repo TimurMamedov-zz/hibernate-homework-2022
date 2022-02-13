@@ -5,7 +5,6 @@ create table if not exists area (
 
 create table if not exists employer (
   employer_id serial primary key,
-  version smallint not null,
   company_name varchar(100) not null,
   creation_time timestamp,
   block_time timestamp
@@ -13,7 +12,6 @@ create table if not exists employer (
 
 create table if not exists vacancy (
   vacancy_id serial primary key,
-  version smallint not null,
   area_id int,
   title varchar(100) not null,
   description varchar(255) default null,

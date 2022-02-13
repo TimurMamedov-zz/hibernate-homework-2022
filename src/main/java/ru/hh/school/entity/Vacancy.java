@@ -1,8 +1,15 @@
 package ru.hh.school.entity;
 
-import org.hibernate.annotations.SelectBeforeUpdate;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -14,9 +21,6 @@ public class Vacancy {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "vacancy_id")
   private Integer id;
-
-  @Version
-  private short version;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "employer_id")
@@ -100,15 +104,6 @@ public class Vacancy {
 
   public void setArchivingTime(LocalDateTime archivingTime) {
     this.archivingTime = archivingTime;
-  }
-
-  public short getVersion() {
-    return version;
-  }
-
-  public Vacancy setVersion(short version) {
-    this.version = version;
-    return this;
   }
 
   @Override
