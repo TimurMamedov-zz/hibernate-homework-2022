@@ -28,6 +28,10 @@ public class GenericDao {
     getSession().save(object);
   }
 
+  public void saveOrUpdate(Object object){
+    getSession().saveOrUpdate(object);
+  }
+
   protected Session getSession() {
     return sessionFactory.getCurrentSession();
   }

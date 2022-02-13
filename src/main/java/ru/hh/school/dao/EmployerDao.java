@@ -9,6 +9,7 @@ public class EmployerDao extends GenericDao {
     super(sessionFactory);
   }
 
+
   /**
    * TODO: здесь нужен метод, позволяющий сразу загрузить вакасии, связанные с работодателем и в некоторых случаях
    * избежать org.hibernate.LazyInitializationException
@@ -17,9 +18,11 @@ public class EmployerDao extends GenericDao {
    * https://vladmihalcea.com/the-best-way-to-handle-the-lazyinitializationexception/
    */
   public Employer getEager(int employerId) {
+
     return getSession()
-        .createQuery("from Employer employer", Employer.class)
-        .getSingleResult();
+            .createQuery("SELECT e FROM Employer e LEFT JOIN FETCH e.vacancies WHERE e.id = :employerId", Employer.class)
+            .setParameter("employerId", employerId)
+            .getSingleResult();
   }
 
 }
